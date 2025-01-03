@@ -1,4 +1,3 @@
-# coding=gbk
 """Code derived from https://github.com/StanfordVL/perls2 and https://github.com/ARISE-Initiative/robomimic"""
 import math
 from typing import Dict, List
@@ -10,17 +9,17 @@ import furniture_bench.controllers.control_utils as C
 
 def osc_factory(real_robot=True, *args, **kwargs):
     """
-    ÓÃÓÚ´´½¨²Ù×÷¿Õ¼ä¿ØÖÆ (OSC) ¿ØÖÆÆ÷µÄ¹¤³§º¯Êı¡£
+    ç”¨äºåˆ›å»ºæ“ä½œç©ºé—´æ§åˆ¶ (OSC) æ§åˆ¶å™¨çš„å·¥å‚å‡½æ•°ã€‚
 
     Args:
-        real_robot (bool): Èç¹û¿ØÖÆÆ÷ÓëÕæÊµµÄ»úÆ÷ÈËÒ»ÆğÊ¹ÓÃ£¬ÔòÎª True£¬·ñÔòÎª False¡£
-                           Õâ¾ö¶¨ÁË¿ØÖÆÆ÷µÄ»ùÀà (¶ÔÓÚÕæÊµ»úÆ÷ÈËÎª torchcontrol.PolicyModule£¬
-                           ·ñÔòÎª torch.nn.Module)¡£
-        *args: ¿É±ä³¤¶È²ÎÊıÁĞ±í¡£
-        **kwargs: ÈÎÒâ¹Ø¼ü×Ö²ÎÊı¡£
+        real_robot (bool): å¦‚æœæ§åˆ¶å™¨ä¸çœŸå®çš„æœºå™¨äººä¸€èµ·ä½¿ç”¨ï¼Œåˆ™ä¸º Trueï¼Œå¦åˆ™ä¸º Falseã€‚
+                           è¿™å†³å®šäº†æ§åˆ¶å™¨çš„åŸºç±» (å¯¹äºçœŸå®æœºå™¨äººä¸º torchcontrol.PolicyModuleï¼Œ
+                           å¦åˆ™ä¸º torch.nn.Module)ã€‚
+        *args: å¯å˜é•¿åº¦å‚æ•°åˆ—è¡¨ã€‚
+        **kwargs: ä»»æ„å…³é”®å­—å‚æ•°ã€‚
 
     Returns:
-        OSCController: OSCController ÀàµÄÒ»¸öÊµÀı¡£
+        OSCController: OSCController ç±»çš„ä¸€ä¸ªå®ä¾‹ã€‚
     """
     if real_robot:
         import torchcontrol as toco
@@ -31,7 +30,7 @@ def osc_factory(real_robot=True, *args, **kwargs):
 
     class OSCController(base):
         """
-        ÓÃÓÚ¿ØÖÆ»úĞµ±ÛÔÚÈÎÎñ¿Õ¼äÖĞÔË¶¯µÄ²Ù×÷¿Õ¼ä¿ØÖÆ (OSC) Àà¡£
+        ç”¨äºæ§åˆ¶æœºæ¢°è‡‚åœ¨ä»»åŠ¡ç©ºé—´ä¸­è¿åŠ¨çš„æ“ä½œç©ºé—´æ§åˆ¶ (OSC) ç±»ã€‚
         """
 
         def __init__(
@@ -50,143 +49,143 @@ def osc_factory(real_robot=True, *args, **kwargs):
             joint_kp: float = 10.0,
         ):
             """
-            ³õÊ¼»¯Ä©¶ËÖ´ĞĞÆ÷×è¿¹¿ØÖÆÆ÷¡£
+            åˆå§‹åŒ–æœ«ç«¯æ‰§è¡Œå™¨é˜»æŠ—æ§åˆ¶å™¨ã€‚
 
             Args:
-                kp (torch.Tensor): ÓÃÓÚ¸ù¾İÎ»ÖÃ/·½ÏòÎó²îÈ·¶¨ÆÚÍûÅ¤¾ØµÄÎ»ÖÃÔöÒæ¡£
-                                    ¿ÉÒÔÊÇ±êÁ¿£¨ËùÓĞ¶¯×÷Î¬¶ÈµÄÖµÏàÍ¬£©»òÁĞ±í£¨Ã¿¸öÎ¬¶È¶¼ÓĞÌØ¶¨µÄÖµ£©¡£
-                kv (torch.Tensor): ÓÃÓÚ¸ù¾İËÙ¶È/½ÇËÙ¶ÈÎó²îÈ·¶¨ÆÚÍûÅ¤¾ØµÄËÙ¶ÈÔöÒæ¡£
-                                    ¿ÉÒÔÊÇ±êÁ¿£¨ËùÓĞ¶¯×÷Î¬¶ÈµÄÖµÏàÍ¬£©»òÁĞ±í£¨Ã¿¸öÎ¬¶È¶¼ÓĞÌØ¶¨µÄÖµ£©¡£
-                                    Èç¹û¶¨ÒåÁË kv,ÔòºöÂÔ×èÄá¡£
-                ee_pos_current (torch.Tensor): µ±Ç°Ä©¶ËÖ´ĞĞÆ÷µÄÎ»ÖÃ¡£
-                ee_quat_current (torch.Tensor): µ±Ç°Ä©¶ËÖ´ĞĞÆ÷µÄ·½Ïò¡£
-                init_joints (torch.Tensor): ³õÊ¼¹Ø½ÚÎ»ÖÃ£¨ÓÃÓÚÁã¿Õ¼ä£©¡£
-                position_limits (torch.Tensor): ¼ÆËã³öµÄÄ¿±êÄ©¶ËÖ´ĞĞÆ÷Î»ÖÃ´óĞ¡½«±»ÏŞÖÆÔÚÕâĞ©ÏŞÖÆ£¨Ã×£©Ö®ÄÚºÍÖ®ÉÏ¡£
-                                                ¿ÉÒÔÊÇ 2 ÔªËØÁĞ±í£¨ËùÓĞµÑ¿¨¶ûÎ¬¶ÈµÄ×îĞ¡/×î´óÖµÏàÍ¬£©
-                                                »ò 2 ÔªËØÁĞ±íµÄÁĞ±í£¨Ã¿¸öÎ¬¶È¶¼ÓĞÌØ¶¨µÄ×îĞ¡/×î´óÖµ£©¡£
-                mass_matrix_offset_val (list): ÒªÌí¼Óµ½ÖÊÁ¿¾ØÕó¶Ô½ÇÏß×îºóÈı¸öÔªËØµÄÆ«ÒÆÁ¿µÄ 3f ÁĞ±í¡£
-                                                ÓÃÓÚÕæÊµ»úÆ÷ÈË£¬ÒÔµ÷ÕûÄ©¶Ë¹Ø½Ú´¦µÄ¸ßÄ¦²ÁÁ¦¡£
-                max_dx (float): ²åÖµ¹ı³ÌÖĞÎ»ÖÃÒÆ¶¯µÄ×î´óÔöÁ¿¡£
-                control_freq (int): ¿ØÖÆÑ­»·µÄÆµÂÊ¡£
-                policy_freq (int): ´Ó»úÆ÷ÈË²ßÂÔÏò´Ë¿ØÖÆÆ÷À¡ËÍ¶¯×÷µÄÆµÂÊ¡£
-                ramp_ratio (float): control_freq / policy_freq µÄ±ÈÂÊ¡£ÓÃÓÚÈ·¶¨²åÖµÆ÷ÖĞÒª²ÉÈ¡µÄ²½Êı¡£
-                joint_kp (float): ¹Ø½ÚÎ»ÖÃ¿ØÖÆµÄ±ÈÀıÔöÒæ¡£
+                kp (torch.Tensor): ç”¨äºæ ¹æ®ä½ç½®/æ–¹å‘è¯¯å·®ç¡®å®šæœŸæœ›æ‰­çŸ©çš„ä½ç½®å¢ç›Šã€‚
+                                    å¯ä»¥æ˜¯æ ‡é‡ï¼ˆæ‰€æœ‰åŠ¨ä½œç»´åº¦çš„å€¼ç›¸åŒï¼‰æˆ–åˆ—è¡¨ï¼ˆæ¯ä¸ªç»´åº¦éƒ½æœ‰ç‰¹å®šçš„å€¼ï¼‰ã€‚
+                kv (torch.Tensor): ç”¨äºæ ¹æ®é€Ÿåº¦/è§’é€Ÿåº¦è¯¯å·®ç¡®å®šæœŸæœ›æ‰­çŸ©çš„é€Ÿåº¦å¢ç›Šã€‚
+                                    å¯ä»¥æ˜¯æ ‡é‡ï¼ˆæ‰€æœ‰åŠ¨ä½œç»´åº¦çš„å€¼ç›¸åŒï¼‰æˆ–åˆ—è¡¨ï¼ˆæ¯ä¸ªç»´åº¦éƒ½æœ‰ç‰¹å®šçš„å€¼ï¼‰ã€‚
+                                    å¦‚æœå®šä¹‰äº† kv,åˆ™å¿½ç•¥é˜»å°¼ã€‚
+                ee_pos_current (torch.Tensor): å½“å‰æœ«ç«¯æ‰§è¡Œå™¨çš„ä½ç½®ã€‚
+                ee_quat_current (torch.Tensor): å½“å‰æœ«ç«¯æ‰§è¡Œå™¨çš„æ–¹å‘ã€‚
+                init_joints (torch.Tensor): åˆå§‹å…³èŠ‚ä½ç½®ï¼ˆç”¨äºé›¶ç©ºé—´ï¼‰ã€‚
+                position_limits (torch.Tensor): è®¡ç®—å‡ºçš„ç›®æ ‡æœ«ç«¯æ‰§è¡Œå™¨ä½ç½®å¤§å°å°†è¢«é™åˆ¶åœ¨è¿™äº›é™åˆ¶ï¼ˆç±³ï¼‰ä¹‹å†…å’Œä¹‹ä¸Šã€‚
+                                                å¯ä»¥æ˜¯ 2 å…ƒç´ åˆ—è¡¨ï¼ˆæ‰€æœ‰ç¬›å¡å°”ç»´åº¦çš„æœ€å°/æœ€å¤§å€¼ç›¸åŒï¼‰
+                                                æˆ– 2 å…ƒç´ åˆ—è¡¨çš„åˆ—è¡¨ï¼ˆæ¯ä¸ªç»´åº¦éƒ½æœ‰ç‰¹å®šçš„æœ€å°/æœ€å¤§å€¼ï¼‰ã€‚
+                mass_matrix_offset_val (list): è¦æ·»åŠ åˆ°è´¨é‡çŸ©é˜µå¯¹è§’çº¿æœ€åä¸‰ä¸ªå…ƒç´ çš„åç§»é‡çš„ 3f åˆ—è¡¨ã€‚
+                                                ç”¨äºçœŸå®æœºå™¨äººï¼Œä»¥è°ƒæ•´æœ«ç«¯å…³èŠ‚å¤„çš„é«˜æ‘©æ“¦åŠ›ã€‚
+                max_dx (float): æ’å€¼è¿‡ç¨‹ä¸­ä½ç½®ç§»åŠ¨çš„æœ€å¤§å¢é‡ã€‚
+                control_freq (int): æ§åˆ¶å¾ªç¯çš„é¢‘ç‡ã€‚
+                policy_freq (int): ä»æœºå™¨äººç­–ç•¥å‘æ­¤æ§åˆ¶å™¨é¦ˆé€åŠ¨ä½œçš„é¢‘ç‡ã€‚
+                ramp_ratio (float): control_freq / policy_freq çš„æ¯”ç‡ã€‚ç”¨äºç¡®å®šæ’å€¼å™¨ä¸­è¦é‡‡å–çš„æ­¥æ•°ã€‚
+                joint_kp (float): å…³èŠ‚ä½ç½®æ§åˆ¶çš„æ¯”ä¾‹å¢ç›Šã€‚
             """
             super().__init__()
             # limits
-            # Ä©¶ËÖ´ĞĞÆ÷Î»ÖÃµÄÏŞÖÆ
+            # æœ«ç«¯æ‰§è¡Œå™¨ä½ç½®çš„é™åˆ¶
             self.position_limits = position_limits
-            # ¿ØÖÆÆ÷ÔöÒæ
+            # æ§åˆ¶å™¨å¢ç›Š
             self.kp = kp
             self.kv = kv
-            # ³õÊ¼¹Ø½ÚÎ»ÖÃ
+            # åˆå§‹å…³èŠ‚ä½ç½®
             self.init_joints = init_joints
 
-            # ÆÚÍûµÄÄ©¶ËÖ´ĞĞÆ÷Î»ÖÃºÍ·½Ïò£¨¿ÉÒÔÓÅ»¯µÄ²ÎÊı£©
+            # æœŸæœ›çš„æœ«ç«¯æ‰§è¡Œå™¨ä½ç½®å’Œæ–¹å‘ï¼ˆå¯ä»¥ä¼˜åŒ–çš„å‚æ•°ï¼‰
             self.ee_pos_desired = torch.nn.Parameter(ee_pos_current)
             self.ee_quat_desired = torch.nn.Parameter(ee_quat_current)
 
-            # ÕæÊµ»úÆ÷ÈËµÄÖÊÁ¿¾ØÕóÆ«ÒÆÖµ
+            # çœŸå®æœºå™¨äººçš„è´¨é‡çŸ©é˜µåç§»å€¼
             # self.mass_matrix = torch.zeros((7, 7))
             self.mass_matrix_offset_val = mass_matrix_offset_val
             self.mass_matrix_offset_idx = torch.tensor([[4, 4], [5, 5], [6, 6]])
 
-            # ÓÃÓÚ¸ú×ÙÖØ¸´Å¤¾ØµÄ±äÁ¿
+            # ç”¨äºè·Ÿè¸ªé‡å¤æ‰­çŸ©çš„å˜é‡
             self.repeated_torques_counter = 0
             self.num_repeated_torques = 3
             self.prev_torques = torch.zeros((7,))
 
-            # Î»ÖÃ²åÖµÆ÷²ÎÊı
+            # ä½ç½®æ’å€¼å™¨å‚æ•°
             # Interpolator pos, ori
             self.max_dx = max_dx  # Maximum allowed change per interpolator step
             self.total_steps = math.floor(
                 ramp_ratio * float(controller_freq) / float(policy_freq)
-            ) # Ã¿¸ö²åÖµÆ÷¶¯×÷µÄ×Ü²½Êı
+            ) # æ¯ä¸ªæ’å€¼å™¨åŠ¨ä½œçš„æ€»æ­¥æ•°
 
-            # ÓÃÓÚ²åÖµµÄµ±Ç°Ä¿±êÎ»ÖÃºÍÏÈÇ°Ä¿±êÎ»ÖÃ
+            # ç”¨äºæ’å€¼çš„å½“å‰ç›®æ ‡ä½ç½®å’Œå…ˆå‰ç›®æ ‡ä½ç½®
             self.goal_pos = ee_pos_current.clone()
             self.prev_goal_pos = ee_pos_current.clone()
             self.step_num_pos = 1
 
-            # ·½Ïò²åÖµÆ÷²ÎÊı
+            # æ–¹å‘æ’å€¼å™¨å‚æ•°
             self.fraction = 0.5
             self.goal_ori = ee_quat_current.clone()
             self.prev_goal_ori = ee_quat_current.clone()
             self.step_num_ori = 1
 
-            # ÏÈÇ°²åÖµµÄÎ»ÖÃºÍ·½Ïò
+            # å…ˆå‰æ’å€¼çš„ä½ç½®å’Œæ–¹å‘
             self.prev_interp_pos = ee_pos_current.clone()
             self.prev_interp_ori = ee_quat_current.clone()
 
-            # ¹Ø½Ú±ÈÀıÔöÒæ
+            # å…³èŠ‚æ¯”ä¾‹å¢ç›Š
             self.joint_kp = joint_kp
 
         def forward(
             self, state_dict: Dict[str, torch.Tensor]
         ) -> Dict[str, torch.Tensor]:
             """
-            ¿ØÖÆÆ÷µÄÕıÏò´«µİ£¬¸ù¾İµ±Ç°×´Ì¬¼ÆËãËùĞèµÄ¹Ø½ÚÅ¤¾Ø¡£
+            æ§åˆ¶å™¨çš„æ­£å‘ä¼ é€’ï¼Œæ ¹æ®å½“å‰çŠ¶æ€è®¡ç®—æ‰€éœ€çš„å…³èŠ‚æ‰­çŸ©ã€‚
 
             Args:
-                state_dict (Dict[str, torch.Tensor]): °üº¬µ±Ç°»úÆ÷ÈË×´Ì¬µÄ×Öµä¡£ 
-                                                        Ó¦°üº¬ÒÔÏÂ¼ü£º'joint_positions'¡¢'joint_velocities'¡¢ 
-                                                        'mass_matrix'¡¢'ee_pose'¡¢'jacobian'¡£
+                state_dict (Dict[str, torch.Tensor]): åŒ…å«å½“å‰æœºå™¨äººçŠ¶æ€çš„å­—å…¸ã€‚ 
+                                                        åº”åŒ…å«ä»¥ä¸‹é”®ï¼š'joint_positions'ã€'joint_velocities'ã€ 
+                                                        'mass_matrix'ã€'ee_pose'ã€'jacobian'ã€‚
 
             Returns:
-                Dict[str, torch.Tensor]: °üº¬¼ÆËã³öµÄ¹Ø½ÚÅ¤¾Ø£¨'joint_torques'£©µÄ×Öµä¡£
+                Dict[str, torch.Tensor]: åŒ…å«è®¡ç®—å‡ºçš„å…³èŠ‚æ‰­çŸ©ï¼ˆ'joint_torques'ï¼‰çš„å­—å…¸ã€‚
             """
 
-            # Ôö¼ÓÖØ¸´Å¤¾Ø¼ÆÊıÆ÷£¬²¢ÔÚ±ØÒªÊ±·µ»ØÏÈÇ°µÄÅ¤¾Ø
+            # å¢åŠ é‡å¤æ‰­çŸ©è®¡æ•°å™¨ï¼Œå¹¶åœ¨å¿…è¦æ—¶è¿”å›å…ˆå‰çš„æ‰­çŸ©
             self.repeated_torques_counter = (
                 self.repeated_torques_counter + 1
             ) % self.num_repeated_torques
             if self.repeated_torques_counter != 1:
                 return {"joint_torques": self.prev_torques}
             
-            # »ñÈ¡µ±Ç°¹Ø½ÚÎ»ÖÃºÍËÙ¶È
-            joint_pos_current = state_dict["joint_positions"] # Ê¼ÖÕÎªtorch.Size([7])
+            # è·å–å½“å‰å…³èŠ‚ä½ç½®å’Œé€Ÿåº¦
+            joint_pos_current = state_dict["joint_positions"] # å§‹ç»ˆä¸ºtorch.Size([7])
             joint_vel_current = state_dict["joint_velocities"]
 
-            # »ñÈ¡ÖÊÁ¿¾ØÕó²¢ÎªÕæÊµ»úÆ÷ÈËÌí¼ÓÆ«ÒÆÁ¿
+            # è·å–è´¨é‡çŸ©é˜µå¹¶ä¸ºçœŸå®æœºå™¨äººæ·»åŠ åç§»é‡
             mass_matrix = state_dict["mass_matrix"].reshape(7, 7).t()
             mass_matrix[4, 4] += self.mass_matrix_offset_val[0]
             mass_matrix[5, 5] += self.mass_matrix_offset_val[1]
             mass_matrix[6, 6] += self.mass_matrix_offset_val[2]
 
-            # »ñÈ¡Ä©¶ËÖ´ĞĞÆ÷Î»×Ë²¢ÌáÈ¡Î»ÖÃºÍ·½Ïò
+            # è·å–æœ«ç«¯æ‰§è¡Œå™¨ä½å§¿å¹¶æå–ä½ç½®å’Œæ–¹å‘
             ee_pose = state_dict["ee_pose"].reshape(4, 4).t().contiguous()
 
             ee_pos, ee_quat = C.mat2pose(ee_pose)
             ee_pos = ee_pos.to(ee_pose.device)
             ee_quat = ee_quat.to(ee_pose.device)
 
-            # »ñÈ¡ÑÅ¿É±È¾ØÕó
+            # è·å–é›…å¯æ¯”çŸ©é˜µ
             jacobian = state_dict["jacobian"].reshape(7, 6).t().contiguous()
 
-            # ¼ÆËãµ±Ç°Ä©¶ËÖ´ĞĞÆ÷µÄËÙ¶È£¨ÏßËÙ¶ÈºÍ½ÇËÙ¶È£©
+            # è®¡ç®—å½“å‰æœ«ç«¯æ‰§è¡Œå™¨çš„é€Ÿåº¦ï¼ˆçº¿é€Ÿåº¦å’Œè§’é€Ÿåº¦ï¼‰
             ee_twist_current = jacobian @ joint_vel_current
             ee_pos_vel = ee_twist_current[:3]
             ee_ori_vel = ee_twist_current[3:]
 
-            # ÉèÖÃÄ¿±êÎ»ÖÃºÍ·½Ïò£¬²¢ÔÚ±ØÒªÊ±¶ÔÎ»ÖÃ½øĞĞ²Ã¼ô
+            # è®¾ç½®ç›®æ ‡ä½ç½®å’Œæ–¹å‘ï¼Œå¹¶åœ¨å¿…è¦æ—¶å¯¹ä½ç½®è¿›è¡Œè£å‰ª
             goal_pos = C.set_goal_position(self.position_limits, self.ee_pos_desired)
             goal_ori = self.ee_quat_desired
 
-            # ÉèÖÃÓÃÓÚ²åÖµµÄµ±Ç°Ä¿±êÎ»ÖÃºÍ·½Ïò
+            # è®¾ç½®ç”¨äºæ’å€¼çš„å½“å‰ç›®æ ‡ä½ç½®å’Œæ–¹å‘
             self.set_goal(goal_pos, goal_ori)
 
-            # »ñÈ¡²åÖµºóµÄÄ¿±êÎ»ÖÃºÍ·½Ïò
+            # è·å–æ’å€¼åçš„ç›®æ ‡ä½ç½®å’Œæ–¹å‘
             goal_pos = self.get_interpolated_goal_pos()
             goal_ori = self.get_interpolated_goal_ori()
 
-            # ½«Ä¿±ê·½Ïò´ÓËÄÔªÊı×ª»»ÎªĞı×ª¾ØÕó
+            # å°†ç›®æ ‡æ–¹å‘ä»å››å…ƒæ•°è½¬æ¢ä¸ºæ—‹è½¬çŸ©é˜µ
             goal_ori_mat = C.quat2mat(goal_ori).to(goal_ori.device)
             ee_ori_mat = C.quat2mat(ee_quat).to(ee_quat.device)
 
-            # ¼ÆËã·½ÏòÎó²î
+            # è®¡ç®—æ–¹å‘è¯¯å·®
             ori_error = C.orientation_error(goal_ori_mat, ee_ori_mat)
 
-            # Ê¹ÓÃ¿ØÖÆÂÉ¼ÆËãÄ©¶ËÖ´ĞĞÆ÷´¦µÄÆÚÍûÁ¦ºÍÅ¤¾Ø
+            # ä½¿ç”¨æ§åˆ¶å¾‹è®¡ç®—æœ«ç«¯æ‰§è¡Œå™¨å¤„çš„æœŸæœ›åŠ›å’Œæ‰­çŸ©
             position_error = goal_pos - ee_pos
             vel_pos_error = -ee_pos_vel
             desired_force = torch.multiply(
@@ -198,16 +197,16 @@ def osc_factory(real_robot=True, *args, **kwargs):
                 vel_ori_error, self.kv[3:]
             )
 
-            # ¼ÆËã²Ù×÷¿Õ¼äÖÊÁ¿¾ØÕóºÍÁã¿Õ¼ä¾ØÕó
+            # è®¡ç®—æ“ä½œç©ºé—´è´¨é‡çŸ©é˜µå’Œé›¶ç©ºé—´çŸ©é˜µ
             lambda_full, nullspace_matrix = C.opspace_matrices(mass_matrix, jacobian)
 
-            # ¼ÆËãÆÚÍûµÄÁ¦/Á¦¾Ø£¨°âÊÖ£©
+            # è®¡ç®—æœŸæœ›çš„åŠ›/åŠ›çŸ©ï¼ˆæ‰³æ‰‹ï¼‰
             desired_wrench = torch.cat([desired_force, desired_torque])
 
-            # ½«°âÊÖ½âñîÎªÈÎÎñ¿Õ¼äºÍÁã¿Õ¼ä·ÖÁ¿
+            # å°†æ‰³æ‰‹è§£è€¦ä¸ºä»»åŠ¡ç©ºé—´å’Œé›¶ç©ºé—´åˆ†é‡
             decoupled_wrench = torch.matmul(lambda_full, desired_wrench)
 
-            # ½«ÆÚÍûµÄ°âÊÖÍ¶Ó°µ½¹Ø½ÚÅ¤¾ØÉÏ
+            # å°†æœŸæœ›çš„æ‰³æ‰‹æŠ•å½±åˆ°å…³èŠ‚æ‰­çŸ©ä¸Š
             torques = torch.matmul(jacobian.T, decoupled_wrench) + C.nullspace_torques(
                 mass_matrix,
                 nullspace_matrix,
@@ -217,23 +216,23 @@ def osc_factory(real_robot=True, *args, **kwargs):
                 joint_kp=self.joint_kp,
             )
 
-            # Ó¦ÓÃÅ¤¾ØÆ«ÒÆÒÔ·ÀÖ¹»úÆ÷ÈË¿¨×¡
+            # åº”ç”¨æ‰­çŸ©åç§»ä»¥é˜²æ­¢æœºå™¨äººå¡ä½
             self._torque_offset(ee_pos, goal_pos, torques)
 
-            # ±£´æ¼ÆËã³öµÄÅ¤¾Ø²¢·µ»Ø
+            # ä¿å­˜è®¡ç®—å‡ºçš„æ‰­çŸ©å¹¶è¿”å›
             self.prev_torques = torques
 
             return {"joint_torques": torques}
 
         def set_goal(self, goal_pos, goal_ori):
             """
-            ÉèÖÃ¿ØÖÆÆ÷µÄÄ¿±êÎ»ÖÃºÍ·½Ïò¡£
+            è®¾ç½®æ§åˆ¶å™¨çš„ç›®æ ‡ä½ç½®å’Œæ–¹å‘ã€‚
 
-            ´Ë·½·¨¸üĞÂÄ¿±êÎ»ÖÃºÍ·½Ïò£¬²¢ÔÚÉèÖÃÁËĞÂÄ¿±ê»òÏÈÇ°µÄ²åÖµÍê³ÉÊ±ÖØÖÃ²åÖµ¡£
+            æ­¤æ–¹æ³•æ›´æ–°ç›®æ ‡ä½ç½®å’Œæ–¹å‘ï¼Œå¹¶åœ¨è®¾ç½®äº†æ–°ç›®æ ‡æˆ–å…ˆå‰çš„æ’å€¼å®Œæˆæ—¶é‡ç½®æ’å€¼ã€‚
 
             Args:
-                goal_pos (torch.Tensor): Ä©¶ËÖ´ĞĞÆ÷µÄÆÚÍûÄ¿±êÎ»ÖÃ¡£
-                goal_ori (torch.Tensor): Ä©¶ËÖ´ĞĞÆ÷µÄÆÚÍûÄ¿±ê·½Ïò¡£
+                goal_pos (torch.Tensor): æœ«ç«¯æ‰§è¡Œå™¨çš„æœŸæœ›ç›®æ ‡ä½ç½®ã€‚
+                goal_ori (torch.Tensor): æœ«ç«¯æ‰§è¡Œå™¨çš„æœŸæœ›ç›®æ ‡æ–¹å‘ã€‚
             """
             if (
                 not torch.isclose(goal_pos, self.goal_pos).all()
@@ -260,12 +259,12 @@ def osc_factory(real_robot=True, *args, **kwargs):
 
         def get_interpolated_goal_pos(self) -> torch.Tensor:
             """
-            ¼ÆËã²¢·µ»Ø²åÖµºóµÄÄ¿±êÎ»ÖÃ¡£
+            è®¡ç®—å¹¶è¿”å›æ’å€¼åçš„ç›®æ ‡ä½ç½®ã€‚
 
-            ´Ë·½·¨¸ù¾İµ±Ç°Î»ÖÃ¡¢Ä¿±êÎ»ÖÃºÍ²åÖµ²½Êı¼ÆËãÏÂÒ»¸ö²åÖµÄ¿±êÎ»ÖÃ¡£
+            æ­¤æ–¹æ³•æ ¹æ®å½“å‰ä½ç½®ã€ç›®æ ‡ä½ç½®å’Œæ’å€¼æ­¥æ•°è®¡ç®—ä¸‹ä¸€ä¸ªæ’å€¼ç›®æ ‡ä½ç½®ã€‚
 
             Returns:
-                torch.Tensor: ²åÖµºóµÄÄ¿±êÎ»ÖÃ¡£
+                torch.Tensor: æ’å€¼åçš„ç›®æ ‡ä½ç½®ã€‚
             """
             # Calculate the desired next step based on remaining interpolation steps and increment step if necessary
             dx = (self.goal_pos - self.prev_goal_pos) / (self.total_steps)
@@ -280,10 +279,10 @@ def osc_factory(real_robot=True, *args, **kwargs):
 
         def get_interpolated_goal_ori(self):
             """
-            Ê¹ÓÃÇòÃæÏßĞÔ²åÖµ (slerp) ¼ÆËã²¢·µ»Ø²åÖµºóµÄÄ¿±ê·½Ïò¡£
+            ä½¿ç”¨çƒé¢çº¿æ€§æ’å€¼ (slerp) è®¡ç®—å¹¶è¿”å›æ’å€¼åçš„ç›®æ ‡æ–¹å‘ã€‚
 
             Returns:
-                torch.Tensor: ²åÖµºóµÄÄ¿±ê·½Ïò¡£
+                torch.Tensor: æ’å€¼åçš„ç›®æ ‡æ–¹å‘ã€‚
             """
             """Get interpolated orientation using slerp."""
             interp_fraction = (self.step_num_ori / self.total_steps) * self.fraction
@@ -297,15 +296,15 @@ def osc_factory(real_robot=True, *args, **kwargs):
 
         def _torque_offset(self, ee_pos, goal_pos, torques):
             """
-            Ó¦ÓÃÅ¤¾ØÆ«ÒÆÒÔ·ÀÖ¹»úÆ÷ÈËÔÚÎ»ÖÃÏŞÖÆ´¦¿¨×¡¡£
+            åº”ç”¨æ‰­çŸ©åç§»ä»¥é˜²æ­¢æœºå™¨äººåœ¨ä½ç½®é™åˆ¶å¤„å¡ä½ã€‚
 
-            ´Ë·½·¨¼ì²éÄ©¶ËÖ´ĞĞÆ÷ÊÇ·ñÎ»ÓÚÎ»ÖÃÏŞÖÆ´¦²¢Ô¶ÀëÄ¿±êÒÆ¶¯¡£
-            Èç¹ûÊÇ£¬ÔòÓ¦ÓÃÅ¤¾ØÆ«ÒÆÒÔ°ïÖú»úÆ÷ÈËÏòÄ¿±êÒÆ¶¯¡£
+            æ­¤æ–¹æ³•æ£€æŸ¥æœ«ç«¯æ‰§è¡Œå™¨æ˜¯å¦ä½äºä½ç½®é™åˆ¶å¤„å¹¶è¿œç¦»ç›®æ ‡ç§»åŠ¨ã€‚
+            å¦‚æœæ˜¯ï¼Œåˆ™åº”ç”¨æ‰­çŸ©åç§»ä»¥å¸®åŠ©æœºå™¨äººå‘ç›®æ ‡ç§»åŠ¨ã€‚
 
             Args:
-                ee_pos (torch.Tensor): µ±Ç°Ä©¶ËÖ´ĞĞÆ÷µÄÎ»ÖÃ¡£
-                goal_pos (torch.Tensor): ÆÚÍûµÄÄ¿±êÎ»ÖÃ¡£
-                torques (torch.Tensor): ¼ÆËã³öµÄ¹Ø½ÚÅ¤¾Ø¡£
+                ee_pos (torch.Tensor): å½“å‰æœ«ç«¯æ‰§è¡Œå™¨çš„ä½ç½®ã€‚
+                goal_pos (torch.Tensor): æœŸæœ›çš„ç›®æ ‡ä½ç½®ã€‚
+                torques (torch.Tensor): è®¡ç®—å‡ºçš„å…³èŠ‚æ‰­çŸ©ã€‚
             """
             """Torque offset to prevent robot from getting stuck when reached too far."""
             if (

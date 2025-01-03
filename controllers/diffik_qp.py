@@ -1,4 +1,3 @@
-# coding=gbk
 from typing import Dict
 
 import torch
@@ -12,13 +11,13 @@ from ipdb import set_trace as bp
 
 def diffik_factory(real_robot=True, *args, **kwargs):
     """
-    ´´½¨Î¢·ÖÄæÔË¶¯Ñ§ (DiffIK) ¿ØÖÆÆ÷µÄfactoryº¯Êı¡£
+    åˆ›å»ºå¾®åˆ†é€†è¿åŠ¨å­¦ (DiffIK) æ§åˆ¶å™¨çš„factoryå‡½æ•°ã€‚
 
-    ²ÎÊı£º
-        real_robot (bool): ÊÇ·ñÎªÕæÊµ»úÆ÷ÈË´´½¨¿ØÖÆÆ÷¡£Ä¬ÈÏÎª True¡£
+    å‚æ•°ï¼š
+        real_robot (bool): æ˜¯å¦ä¸ºçœŸå®æœºå™¨äººåˆ›å»ºæ§åˆ¶å™¨ã€‚é»˜è®¤ä¸º Trueã€‚
 
-    ·µ»Ø£º
-        DiffIKController Àà
+    è¿”å›ï¼š
+        DiffIKController ç±»
     """
     if real_robot:
         import torchcontrol as toco
@@ -29,7 +28,7 @@ def diffik_factory(real_robot=True, *args, **kwargs):
 
     class DiffIKController(base):
         """Differential Inverse Kinematics Controller"""
-        """Î¢·ÖÄæÔË¶¯Ñ§¿ØÖÆÆ÷"""
+        """å¾®åˆ†é€†è¿åŠ¨å­¦æ§åˆ¶å™¨"""
 
         def __init__(
             self,
@@ -37,11 +36,11 @@ def diffik_factory(real_robot=True, *args, **kwargs):
             rot_scalar=1.0,
         ):
             """
-            ³õÊ¼»¯Î¢·ÖÄæÔË¶¯Ñ§¿ØÖÆÆ÷¡£
+            åˆå§‹åŒ–å¾®åˆ†é€†è¿åŠ¨å­¦æ§åˆ¶å™¨ã€‚
 
-            ²ÎÊı£º
-                pos_scalar (float): Î»ÖÃÎó²îµÄËõ·ÅÒò×Ó¡£Ä¬ÈÏÎª 1.0¡£
-                rot_scalar (float): Ğı×ªÎó²îµÄËõ·ÅÒò×Ó¡£Ä¬ÈÏÎª 1.0¡£
+            å‚æ•°ï¼š
+                pos_scalar (float): ä½ç½®è¯¯å·®çš„ç¼©æ”¾å› å­ã€‚é»˜è®¤ä¸º 1.0ã€‚
+                rot_scalar (float): æ—‹è½¬è¯¯å·®çš„ç¼©æ”¾å› å­ã€‚é»˜è®¤ä¸º 1.0ã€‚
             """
             super().__init__()
             self.ee_pos_desired = None
@@ -64,82 +63,82 @@ def diffik_factory(real_robot=True, *args, **kwargs):
             self, state_dict: Dict[str, torch.Tensor]
         ) -> Dict[str, torch.Tensor]:
             """
-            Ç°Ïò´«µİº¯Êı£¬¼ÆËã²¢·µ»ØÆÚÍûµÄ¹Ø½ÚÎ»ÖÃ¡£
+            å‰å‘ä¼ é€’å‡½æ•°ï¼Œè®¡ç®—å¹¶è¿”å›æœŸæœ›çš„å…³èŠ‚ä½ç½®ã€‚
 
-            ²ÎÊı£º
-                state_dict (Dict[str, torch.Tensor]): °üº¬µ±Ç°×´Ì¬ĞÅÏ¢µÄ×Öµä£¬ÀıÈç¹Ø½ÚÎ»ÖÃ¡¢ÑÅ¿É±È¾ØÕó¡¢Ä©¶ËÖ´ĞĞÆ÷Î»×ËµÈ¡£
+            å‚æ•°ï¼š
+                state_dict (Dict[str, torch.Tensor]): åŒ…å«å½“å‰çŠ¶æ€ä¿¡æ¯çš„å­—å…¸ï¼Œä¾‹å¦‚å…³èŠ‚ä½ç½®ã€é›…å¯æ¯”çŸ©é˜µã€æœ«ç«¯æ‰§è¡Œå™¨ä½å§¿ç­‰ã€‚
 
-            ·µ»Ø£º
-                Dict[str, torch.Tensor]: °üº¬¼ÆËãµÃµ½µÄÆÚÍû¹Ø½ÚÎ»ÖÃµÄ×Öµä¡£
+            è¿”å›ï¼š
+                Dict[str, torch.Tensor]: åŒ…å«è®¡ç®—å¾—åˆ°çš„æœŸæœ›å…³èŠ‚ä½ç½®çš„å­—å…¸ã€‚
             """
             
-            # »ñÈ¡×´Ì¬ĞÅÏ¢
-            # joint_pos_current µÄĞÎ×´: (batch_size, num_joints = 7)
-            joint_pos_current = state_dict["joint_positions"]  # µ±Ç°¹Ø½ÚÎ»ÖÃ
+            # è·å–çŠ¶æ€ä¿¡æ¯
+            # joint_pos_current çš„å½¢çŠ¶: (batch_size, num_joints = 7)
+            joint_pos_current = state_dict["joint_positions"]  # å½“å‰å…³èŠ‚ä½ç½®
             if len(joint_pos_current.shape) == 1:
                 joint_pos_current = joint_pos_current.unsqueeze(0)
 
             if self.joint_pos_desired is None:
-                # Ê¹ÓÃ³õÊ¼¹Ø½ÚÎ»ÖÃ×÷Îª±ê³ÆÎ»ÖÃ
+                # ä½¿ç”¨åˆå§‹å…³èŠ‚ä½ç½®ä½œä¸ºæ ‡ç§°ä½ç½®
                 self.joint_pos_desired = joint_pos_current
-                # ³õÊ¼»¯kp¾ØÕó
+                # åˆå§‹åŒ–kpçŸ©é˜µ
                 self.joint_pos_kp = torch.diag(torch.Tensor([50,50,50,50,50,50,50])).to(joint_pos_current.device)
 
-            # jacobian µÄĞÎ×´: (batch_size, 6, num_joints = 7)
+            # jacobian çš„å½¢çŠ¶: (batch_size, 6, num_joints = 7)
             jacobian = state_dict["jacobian_diffik"]
             if len(jacobian.shape) == 2:
                 jacobian = jacobian.unsqueeze(0)
 
-            # ee_pos µÄĞÎ×´: (batch_size, 3)
-            # ee_quat µÄĞÎ×´: (batch_size, 4)£¬Êµ²¿ÔÚÄ©Î²
-            ee_pos, ee_quat_xyzw = state_dict["ee_pos"], state_dict["ee_quat"]  # Ä©¶ËÖ´ĞĞÆ÷Î»ÖÃºÍ×ËÌ¬£¨ËÄÔªÊı£©
+            # ee_pos çš„å½¢çŠ¶: (batch_size, 3)
+            # ee_quat çš„å½¢çŠ¶: (batch_size, 4)ï¼Œå®éƒ¨åœ¨æœ«å°¾
+            ee_pos, ee_quat_xyzw = state_dict["ee_pos"], state_dict["ee_quat"]  # æœ«ç«¯æ‰§è¡Œå™¨ä½ç½®å’Œå§¿æ€ï¼ˆå››å…ƒæ•°ï¼‰
             if len(ee_pos.shape) == 1:
                 ee_pos = ee_pos.unsqueeze(0)
             if len(ee_quat_xyzw.shape) == 1:
                 ee_quat_xyzw = ee_quat_xyzw.unsqueeze(0)
-            goal_ori_xyzw = self.goal_ori  # Ä¿±ê×ËÌ¬£¨ËÄÔªÊı£©
+            goal_ori_xyzw = self.goal_ori  # ç›®æ ‡å§¿æ€ï¼ˆå››å…ƒæ•°ï¼‰
 
             position_error = self.goal_pos - ee_pos
 
-            # ½«ËÄÔªÊı×ª»»ÎªĞı×ª¾ØÕó
-            ee_mat = C.quaternion_to_matrix(ee_quat_xyzw)  # µ±Ç°Ä©¶ËÖ´ĞĞÆ÷×ËÌ¬µÄĞı×ª¾ØÕó
-            goal_mat = C.quaternion_to_matrix(goal_ori_xyzw)  # Ä¿±ê×ËÌ¬µÄĞı×ª¾ØÕó
+            # å°†å››å…ƒæ•°è½¬æ¢ä¸ºæ—‹è½¬çŸ©é˜µ
+            ee_mat = C.quaternion_to_matrix(ee_quat_xyzw)  # å½“å‰æœ«ç«¯æ‰§è¡Œå™¨å§¿æ€çš„æ—‹è½¬çŸ©é˜µ
+            goal_mat = C.quaternion_to_matrix(goal_ori_xyzw)  # ç›®æ ‡å§¿æ€çš„æ—‹è½¬çŸ©é˜µ
 
-            # ¼ÆËã¾ØÕóÎó²î
+            # è®¡ç®—çŸ©é˜µè¯¯å·®
             mat_error = torch.matmul(goal_mat, torch.inverse(ee_mat))
 
-            # ½«¾ØÕóÎó²î×ª»»ÎªÖá½Ç±íÊ¾
+            # å°†çŸ©é˜µè¯¯å·®è½¬æ¢ä¸ºè½´è§’è¡¨ç¤º
             ee_delta_axis_angle = C.matrix_to_axis_angle(mat_error)
 
-            dt = 0.1  # ¿ØÖÆÖÜÆÚ
+            dt = 0.1  # æ§åˆ¶å‘¨æœŸ
 
-            # ¼ÆËãÆÚÍûµÄÄ©¶ËÖ´ĞĞÆ÷ÏßËÙ¶ÈºÍ½ÇËÙ¶È
-            ee_pos_vel = position_error * self.pos_scalar / dt  # ÆÚÍûµÄÏßËÙ¶È
-            ee_rot_vel = ee_delta_axis_angle * self.rot_scalar / dt  # ÆÚÍûµÄ½ÇËÙ¶È
+            # è®¡ç®—æœŸæœ›çš„æœ«ç«¯æ‰§è¡Œå™¨çº¿é€Ÿåº¦å’Œè§’é€Ÿåº¦
+            ee_pos_vel = position_error * self.pos_scalar / dt  # æœŸæœ›çš„çº¿é€Ÿåº¦
+            ee_rot_vel = ee_delta_axis_angle * self.rot_scalar / dt  # æœŸæœ›çš„è§’é€Ÿåº¦
 
-            # ½«ÆÚÍûµÄÏßËÙ¶ÈºÍ½ÇËÙ¶ÈºÏ²¢ÎªÆÚÍûµÄËÙ¶ÈÏòÁ¿
+            # å°†æœŸæœ›çš„çº¿é€Ÿåº¦å’Œè§’é€Ÿåº¦åˆå¹¶ä¸ºæœŸæœ›çš„é€Ÿåº¦å‘é‡
             ee_velocity_desired = torch.cat((ee_pos_vel, ee_rot_vel), dim=-1).unsqueeze(-1)
 
-            # ¸ù¾İµ±Ç°¹Ø½Ú½Ç¶ÈºÍ±ê³Æ¹Ø½Ú½Ç¶È¼ÆËãÄ¿±ê¹Ø½ÚËÙ¶È
+            # æ ¹æ®å½“å‰å…³èŠ‚è§’åº¦å’Œæ ‡ç§°å…³èŠ‚è§’åº¦è®¡ç®—ç›®æ ‡å…³èŠ‚é€Ÿåº¦
             joint_vel_desired_by_pos = ((self.joint_pos_desired-joint_pos_current)@self.joint_pos_kp).unsqueeze(-1)
 
-            # ¶ÔÑÅ¿É±È¾ØÕó½øĞĞÆæÒìÖµ·Ö½â
+            # å¯¹é›…å¯æ¯”çŸ©é˜µè¿›è¡Œå¥‡å¼‚å€¼åˆ†è§£
             U, S, V = torch.svd(jacobian,some=False)
-            # ÇóÁã¿Õ¼ä£¨Ôİ²»¿¼ÂÇÆæÒìµã£©
+            # æ±‚é›¶ç©ºé—´ï¼ˆæš‚ä¸è€ƒè™‘å¥‡å¼‚ç‚¹ï¼‰
             # rtol = 1e-6
             # rank = (S > rtol * S[0]).sum(dim=1)
             rank = 6
             null_space = V[:,:,rank:]
             N = null_space.mT
 
-            # ¼ÆËãqpÓÅ»¯ÎÊÌâ
+            # è®¡ç®—qpä¼˜åŒ–é—®é¢˜
             lambda_ = 0.01
             A = jacobian
             P = 2 * (torch.bmm(A.mT, A) + lambda_ * torch.bmm(N.mT, N))
             Q = -2 * torch.bmm(A.mT, ee_velocity_desired)
             - 2 * lambda_ * torch.bmm(torch.bmm(N.mT, N),joint_vel_desired_by_pos)
 
-            # Ê¹ÓÃÑÅ¿É±È¾ØÕóµÄÎ±Äæ¼ÆËãÆÚÍûµÄ¹Ø½ÚËÙ¶È
+            # ä½¿ç”¨é›…å¯æ¯”çŸ©é˜µçš„ä¼ªé€†è®¡ç®—æœŸæœ›çš„å…³èŠ‚é€Ÿåº¦
             joint_vel_desired = torch.linalg.lstsq(
                 P, -Q
             ).solution.squeeze(2)
@@ -147,24 +146,24 @@ def diffik_factory(real_robot=True, *args, **kwargs):
             #     jacobian, ee_velocity_desired
             # ).solution.squeeze(2)
 
-            # ¸ù¾İÆÚÍûµÄ¹Ø½ÚËÙ¶È¼ÆËãÆÚÍûµÄ¹Ø½ÚÎ»ÖÃ
+            # æ ¹æ®æœŸæœ›çš„å…³èŠ‚é€Ÿåº¦è®¡ç®—æœŸæœ›çš„å…³èŠ‚ä½ç½®
             joint_pos_desired = joint_pos_current + joint_vel_desired * dt
 
             return {"joint_positions": joint_pos_desired}
 
         def set_goal(self, goal_pos, goal_ori):
             """
-            ÉèÖÃÄ¿±êÎ»ÖÃºÍ×ËÌ¬¡£
+            è®¾ç½®ç›®æ ‡ä½ç½®å’Œå§¿æ€ã€‚
 
-            ²ÎÊı£º
-                goal_pos (torch.Tensor): Ä¿±êÎ»ÖÃ¡£
-                goal_ori (torch.Tensor): Ä¿±ê×ËÌ¬£¨ËÄÔªÊı£©¡£
+            å‚æ•°ï¼š
+                goal_pos (torch.Tensor): ç›®æ ‡ä½ç½®ã€‚
+                goal_ori (torch.Tensor): ç›®æ ‡å§¿æ€ï¼ˆå››å…ƒæ•°ï¼‰ã€‚
             """
             self.goal_pos = goal_pos
             self.goal_ori = goal_ori
 
         def reset(self):
-            """ÖØÖÃ¿ØÖÆÆ÷"""
+            """é‡ç½®æ§åˆ¶å™¨"""
             pass
 
     return DiffIKController(*args, **kwargs)
