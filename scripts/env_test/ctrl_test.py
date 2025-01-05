@@ -1,4 +1,3 @@
-# coding=gbk
 """Instantiate FurnitureSimState-v0/FurnitureSimRL-v0 and test controllers."""
 import gym
 import cv2
@@ -15,13 +14,13 @@ import torch
 
 def unwrap_angles(angles):
     """
-    Õ¹¿ª½Ç¶È£¬±ÜÃâÖÜÆÚĞÔÌø±ä¡£
+    å±•å¼€è§’åº¦ï¼Œé¿å…å‘¨æœŸæ€§è·³å˜ã€‚
 
     Args:
-        angles: ½Ç¶ÈÁĞ±í (»¡¶È)¡£
+        angles: è§’åº¦åˆ—è¡¨ (å¼§åº¦)ã€‚
 
     Returns:
-        Õ¹¿ªºóµÄ½Ç¶ÈÁĞ±í¡£
+        å±•å¼€åçš„è§’åº¦åˆ—è¡¨ã€‚
     """
     unwrapped_angles = [angles[0]]
     for i in range(1, len(angles)):

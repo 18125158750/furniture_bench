@@ -1003,16 +1003,16 @@ class FurnitureSimEnv(gym.Env):
 
             self.isaac_gym.simulate(self.sim)
 
-        self.isaac_gym.fetch_results(self.sim, True)
+            self.isaac_gym.fetch_results(self.sim, True)
+
+            # Refresh tensors.
+            self.isaac_gym.refresh_dof_state_tensor(self.sim)
+            self.isaac_gym.refresh_dof_force_tensor(self.sim)
+            self.isaac_gym.refresh_rigid_body_state_tensor(self.sim)
+            self.isaac_gym.refresh_jacobian_tensors(self.sim)
 
         if not self.headless or self.render_cameras:
             self.isaac_gym.step_graphics(self.sim)
-
-        # Refresh tensors.
-        self.isaac_gym.refresh_dof_state_tensor(self.sim)
-        self.isaac_gym.refresh_dof_force_tensor(self.sim)
-        self.isaac_gym.refresh_rigid_body_state_tensor(self.sim)
-        self.isaac_gym.refresh_jacobian_tensors(self.sim)
 
         # Update viewer
         if not self.headless:

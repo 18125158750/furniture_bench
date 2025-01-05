@@ -1,4 +1,3 @@
-# coding=gbk
 """Instantiate FurnitureSim-v0 and test various functionalities."""
 
 import argparse
@@ -45,7 +44,7 @@ def main():
     
     done = False
 
-    # 将动作转换为张量
+    # 灏嗗姩浣滆浆鎹负寮犻噺
     def action_tensor(ac):
         if isinstance(ac, (list, np.ndarray)):
             return torch.tensor(ac).float().to(env.device)
