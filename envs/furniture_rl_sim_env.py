@@ -2057,28 +2057,13 @@ class FurnitureRLSimEnv(FurnitureSimEnv):
 
         return rewards
 
-    # （原始）仅在所有环境完成时返回
-    # def _done(self):
-    #     if self.manual_done:
-    #         return torch.zeros((self.num_envs, 1), dtype=torch.bool, device=self.device)
-    #     return (
-    #         self.already_assembled.sum(dim=1) == len(self.pairs_to_assemble)
-    #     ).unsqueeze(1)
-
-    # 各个环境单独判定
-    def _done(self) -> torch.Tensor:
-        dones = torch.zeros((self.num_envs, 1), dtype=torch.bool, device=self.device)
+    def _done(self):
         if self.manual_done:
-            return dones
-        for env_idx in range(self.num_envs):
-            timeout = self.env_steps[env_idx] > self.furniture.max_env_steps
-            if self.furnitures[env_idx].all_assembled() or timeout:
-                dones[env_idx] = 1
-                # if timeout:
-                #     gym.logger.warn(f"[env] env_idx: {env_idx} timeout")
-        if self.np_step_out:
-            dones = dones.cpu().numpy().astype(bool)
-        return dones
+            return torch.zeros((self.num_envs, 1), dtype=torch.bool, device=self.device)
+        return torch.logical_or(
+            self.env_steps>self.furniture.max_env_steps,
+            self.already_assembled.sum(dim=1) == len(self.pairs_to_assemble)
+        ).unsqueeze(1)
 
     @torch.no_grad()
     def step(self, action: torch.Tensor, sample_perturbations: bool = False):
@@ -2295,6 +2280,7 @@ class FurnitureRLSimEnv(FurnitureSimEnv):
         parts_poses = torch.stack([torch.tensor(s['parts_poses']) for s in state], dim=0).to(self.device) # [b,42]
         parts_poses = parts_poses.reshape(-1,6,7).float()
 
+        self.already_assembled[env_idxs] = 0
         self._reset_frankas_to(env_idxs, dof_poses)
         self._reset_part_poses_to(env_idxs, parts_poses)
 
@@ -2315,6 +2301,7 @@ class FurnitureRLSimEnv(FurnitureSimEnv):
         parts_poses = torch.stack([torch.tensor(s['parts_poses']) for s in state], dim=0).to(self.device) # [b,42]
         parts_poses = parts_poses.reshape(-1,6,7).float()
 
+        self.already_assembled[env_idxs] = 0
         self._reset_frankas_to(env_idxs, dof_poses)
         self._reset_part_poses_to(env_idxs, parts_poses)
         self.env_steps[env_idxs] = 0
